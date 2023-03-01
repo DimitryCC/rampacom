@@ -1,36 +1,23 @@
 import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 function ConseguirAlojamientos() {
     const [listaAlojamientos, setListaAlojamientos] = useState([]);
     useEffect(() => {
         fetch('http://www.rampacom.com/ProyectoFinal/public/api/alojamiento')
             .then(response => response.json())
             .then(data => {
-                console.log(data.result.data);
                 setListaAlojamientos(data.result.data);
             })
             .catch(error => {
                 console.error(error);
             });
     }, []);
-    const [listaMunicipios, setElementos] = useState([]);
-    useEffect(() => {
-        fetch('http://www.rampacom.com/ProyectoFinal/public/api/alojamiento')
-            .then(response => response.json())
-            .then(data => {
-                console.log(data.result.data);
-                setElementos(data.result.data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }, []);
-
-
     return(
+        <>
         <section id={'container'}>
             {
                 listaAlojamientos.map((alojamiento)=>(
-                    <article id={alojamiento.id} key={alojamiento.id}>
+                    <article id={alojamiento.ID} className={"alojamiento"} key={alojamiento.ID}>
                         <h1>{alojamiento.nombre}</h1>
                         <h2>{alojamiento.direction}</h2>
                         <table>
@@ -59,13 +46,12 @@ function ConseguirAlojamientos() {
                         </table>
                         <br/>
                         <p>{alojamiento.descripcion}</p>
-
+                        <Link to={'/alojamiento/'+alojamiento.ID}>Ir a la ruta con el id</Link>
                     </article>
                 ))
             }
         </section>
-
+        </>
     )
-
 }
 export default ConseguirAlojamientos;
