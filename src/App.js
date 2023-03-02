@@ -1,23 +1,88 @@
-import {
-    BrowserRouter,
-    Routes,
-    Route
-} from "react-router-dom";
-import Home from "./elementos/Home";
-import AlojamientoIndividual from "./elementos/AlojamientoIndividual";
-import ConseguirAlojamientos from "./elementos/ConseguirAlojamientos";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Feines from "./components/Feines";
+import Autors from "./components/Autors";
+import Menu from "./components/Menu";
+import Municipis from "./components/Municipis";
+import EditaMunicipis from "./components/EditaMunicipis";
+import LlistaMunicipis from "./components/LlistaMunicipis";
+import TaulaLlibres from "./components/TaulaLlibres";
+import Carrusel from "./components/Fotografies/Carrusel";
+import Alojamientos from "./components/Alojamientos/Alojamientos";
+import Login from "./components/Login/Login";
+import CreaUser from "./components/Login/CreaUsuer";
+import CreaIdioma from "./components/Idiomas/CreaIdioma";
+import LogAdmin from "./components/Login/LogAdmin";
+import Logueado from "./components/Login/Logueado";
+
+import ProtectedRoutesAdmin from "./components/Login/ProtectedRoutesAdmin";
+import CreaReserves from "./components/Reserves/CreaReserves";
+import ProtectedRoutesToken from "./components/Login/ProtectedRoutesToken";
+import CrudAlojamientos from "./components/Crud/CrudAlojamientos";
+import AdminSelect from "./components/Crud/AdminSelect";
+import CrudCategoria from "./components/Crud/CrudCategoria";
+import CrudUsuario from "./components/Crud/CrudUsuario";
+import CrudFotos from "./components/Crud/CrudFotos";
+import CrudValoraciones from "./components/Crud/CrudValoraciones";
+import PerfilUser from "./components/Usuarios/PerfilUser";
+import Inicio from "./components/Fotografies/Inicio";
+import CrudIdiomas from "./components/Crud/CrudIdiomas";
+import CrudMunicipios from "./components/Crud/CrudMunicipios";
+import CrudServicios from "./components/Crud/CrudServicios";
+import CrudReservas from "./components/Crud/CrudReservas";
+import CrudDescripciones from "./components/Crud/CrudDescripciones";
+import CrudAlojServicios from "./components/Crud/CrudAlojServicios";
+import CrudTipoAlojamiento from "./components/Crud/CrudTipoAlojamiento";
+import CrudTipoVacacional from "./components/Crud/CrudTipoVacacional";
+
 
 
 function App() {
+    //<ProtectedRoute path="/protected" element={<LogAdmin />} />
+
   return (
       <BrowserRouter>
-          <Routes>
-              <Route index={true} path={"/"} element={<Home/>}/>
-              <Route path={"alojamientos"} element={<ConseguirAlojamientos/>}/>
-              <Route path={"alojamiento/:alojaminetoId"}  element={<AlojamientoIndividual/>}/>
-          </Routes>
+        <Routes>
+          <Route path="/" element={<Menu />}>
+              <Route path="/*" element={<Inicio />} />
+            <Route path="/inicio" element={<Inicio />} />
+            <Route path="/feines" element={<Feines />} />
+            <Route path="/autors" element={<Autors />} />
+            <Route path="/municipis" element={<Municipis />} />
+            <Route path="/municipis/:id" element={<EditaMunicipis />} />
+            <Route path="/llistamunicipis" element={<LlistaMunicipis />} />
+            <Route path="/taulallibres" element={<TaulaLlibres />} />
+            <Route path="/alojamientos" element={<Alojamientos />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/creauser" element={<CreaUser />} />
+            <Route path="/creaIdioma" element={<CreaIdioma />} />
+            <Route path="/logueado" element={<Logueado />} />
+            <Route element={<ProtectedRoutesAdmin />} >
+                <Route element={<LogAdmin />} path="/protected" />
+                <Route element={<AdminSelect />} path="/adminselect" />
+                <Route element={<CrudAlojamientos />} path="/crudalojamientos" />
+                <Route element={<CrudCategoria />} path="/crudcategoria" />
+                <Route element={<CrudUsuario />} path="/crudusuario" />
+                <Route element={<CrudFotos />} path="/crudfotos" />
+                <Route element={<CrudValoraciones />} path="/crudvaloraciones" />
+                <Route element={<CrudIdiomas />} path="/crudidiomas" />
+                <Route element={<CrudMunicipios />} path="/crudmunicipios" />
+                <Route element={<CrudServicios />} path="/crudservicios" />
+                <Route element={<CrudReservas />} path="/crudreservas" />
+                <Route element={<CrudDescripciones />} path="/cruddescripciones" />
+                <Route element={<CrudAlojServicios />} path="/crudalojservicios" />
+                <Route element={<CrudTipoAlojamiento />} path="/crudtipoalojamiento" />
+                <Route element={<CrudTipoVacacional />} path="/crudtipovacacional" />
+            </Route>
+            <Route element={<ProtectedRoutesToken />} >
+                <Route element={<CreaReserves />} path="/reserves" />
+                <Route element={<PerfilUser />} path="/perfil" />
+            </Route>
+          </Route>
+
+        </Routes>
+
       </BrowserRouter>
-  )
+  );
 }
 
 export default App;
