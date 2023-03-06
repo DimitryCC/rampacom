@@ -4,9 +4,7 @@ import {v4 as uuidv4} from "uuid";
 import axios from "axios";
 import {Card, Col, Row} from "react-bootstrap";
 import {Button} from "@mui/material";
-import {dark} from "@mui/material/styles/createPalette";
 import filtroIdioma from "../../JS/FiltroIdioma";
-import SelleccionCategoria from "./SelleccionCategoria";
 
 
 function AlojaminetosFiltrados() {
@@ -131,6 +129,44 @@ function AlojaminetosFiltrados() {
         if (listaAlojamientos.length === 0){
             return (
                 <>
+                    <form key={uuidv4()}>
+                        <label id={"NP"}>Aforo minimo:<br/> <input key={uuidv4()} id={"NP"} value={Aforo} type="number"
+                                                                   name="NP" onChange={cambio}/></label>
+                        <label id={"NH"}>Nuemro de habitaciones: <input id={"NH"} key={uuidv4()} value={Habitaciones}
+                                                                        type="number" name="NH"
+                                                                        onChange={cambio}/></label>
+                        <label id={"NC"}>Numero de Camas: <input id={"NC"} key={uuidv4()} value={Camas} type="number"
+                                                                 name="NC" onChange={cambio}/></label>
+                        <label id={"NB"}>Numero de Baños: <input id={"NB"} key={uuidv4()} value={Banos} type="number"
+                                                                 name="NB" onChange={cambio}/></label>
+                        <label id={"C"}>Categoria:
+                            <select id={"C"} key={uuidv4()} name={"C"} value={""} onChange={cambio}>
+                                <option key={uuidv4()} value={""}>{"Seleciona"}</option>
+                                {
+                                    listaCategorias.map((P) => (
+                                        <option key={uuidv4()} value={P.ID}>{P.nombreCategoria}</option>
+                                    ))
+                                }
+                            </select></label>
+                        <label id={"TA"}> Tipo de Alojamiento:
+                            <select id={"TA"} name={"TA"} key={uuidv4()} value={""} onChange={cambio}>
+                                <option key={uuidv4()} value={""}>{"Selecciona"}</option>
+                                {
+                                    listaTipos.map((P) => (
+                                        <option key={uuidv4()} value={P.ID}>{P.nombreTipo}</option>
+                                    ))
+                                }
+                            </select></label>
+                        <label id={"TV"}>Tipo vacacional:
+                            <select key={uuidv4()} id={"TV"} name={"TV"} value={""} onChange={cambio}>
+                                <option key={uuidv4()} value={""}>{"Selecciona"}</option>
+                                {
+                                    listaVacacional.map((P) => (
+                                        <option key={uuidv4()} value={P.ID}>{P.nombreTipo}</option>
+                                    ))
+                                }
+                            </select></label>
+                    </form>
                     <h1>No hay ningun alojamiento que cumpla con sus requisitos...</h1>
                 </>
             )
@@ -222,7 +258,7 @@ function AlojaminetosFiltrados() {
                                             }}>{alojamiento.descripcion}<br/>{alojamiento.direction}</Card.Text>
                                             <Button variant={"dark"}><Link
                                                 style={{textDecoration: 'none', color: 'white'}}
-                                                to={'/alojamiento/' + alojamiento.ID}>Ir a la ruta con el
+                                                to={'/alojamiento/'+alojamiento.ID}>Ir a la ruta con el
                                                 id</Link></Button>
                                         </Card.Body>
                                     </Card>
