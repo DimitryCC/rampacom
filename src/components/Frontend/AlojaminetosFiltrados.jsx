@@ -97,7 +97,6 @@ function AlojaminetosFiltrados() {
     });
 
     function cambio(e){
-        console.log("Eject");
         switch (e.target.name) {
             case "NP":
                 setAforo(e.target.value);
@@ -140,8 +139,8 @@ function AlojaminetosFiltrados() {
                         <label id={"NB"}>Numero de Baños: <input id={"NB"} key={uuidv4()} value={Banos} type="number"
                                                                  name="NB" onChange={cambio}/></label>
                         <label id={"C"}>Categoria:
-                            <select id={"C"} key={uuidv4()} name={"C"} value={""} onChange={cambio}>
-                                <option key={uuidv4()} value={""}>{"Seleciona"}</option>
+                            <select id={"C"} key={uuidv4()} name={"C"} value={Categoria} onChange={cambio}>
+                                <option key={uuidv4()} value={null}>{"Seleciona"}</option>
                                 {
                                     listaCategorias.map((P) => (
                                         <option key={uuidv4()} value={P.ID}>{P.nombreCategoria}</option>
@@ -149,8 +148,8 @@ function AlojaminetosFiltrados() {
                                 }
                             </select></label>
                         <label id={"TA"}> Tipo de Alojamiento:
-                            <select id={"TA"} name={"TA"} key={uuidv4()} value={""} onChange={cambio}>
-                                <option key={uuidv4()} value={""}>{"Selecciona"}</option>
+                            <select id={"TA"} name={"TA"} key={uuidv4()} value={TipoAlojameinto} onChange={cambio}>
+                                <option key={uuidv4()} value={null}>{"Selecciona"}</option>
                                 {
                                     listaTipos.map((P) => (
                                         <option key={uuidv4()} value={P.ID}>{P.nombreTipo}</option>
@@ -158,8 +157,8 @@ function AlojaminetosFiltrados() {
                                 }
                             </select></label>
                         <label id={"TV"}>Tipo vacacional:
-                            <select key={uuidv4()} id={"TV"} name={"TV"} value={""} onChange={cambio}>
-                                <option key={uuidv4()} value={""}>{"Selecciona"}</option>
+                            <select key={uuidv4()} id={"TV"} name={"TV"} value={TipoVacacional} onChange={cambio}>
+                                <option key={uuidv4()} value={null}>{"Selecciona"}</option>
                                 {
                                     listaVacacional.map((P) => (
                                         <option key={uuidv4()} value={P.ID}>{P.nombreTipo}</option>
