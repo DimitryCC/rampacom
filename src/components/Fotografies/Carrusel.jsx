@@ -37,7 +37,7 @@ function Carrusel(props) {
     const omplirOptions1=()=>{
         return alojamientos.map(function(tupla){
             if(tupla.ID == tupla.nombre )
-            return <option key={tupla.ID} value={tupla.ID}>{tupla.nombre}</option>;
+                return <option key={tupla.ID} value={tupla.ID}>{tupla.nombre}</option>;
         });
     }
 
@@ -75,8 +75,6 @@ function Carrusel(props) {
         ,
         []
     );
-
-
     return (
         <div>
             <Swiper
@@ -91,9 +89,9 @@ function Carrusel(props) {
                 {fotografias.map((fotografia, index) => (
                     <SwiperSlide key={fotografia.ID} virtualIndex={index}>
                         <div style={mystyle}>
-                        <Link to={'/alojamiento/'+fotografia.alojamientoId}><img style={imgS} src={fotografia.ruta}/></Link>
+                            <Link to={'/alojamiento/'+fotografia.alojamientoId}><img style={imgS} src={fotografia.ruta}/></Link>
 
-                        <Link to={'/alojamiento/'+fotografia.alojamientoId}><h2>Accede</h2></Link>
+                            <Link to={'/alojamiento/'+fotografia.alojamientoId}><h2>Accede</h2></Link>
                         </div>
                     </SwiperSlide>
                 ))}

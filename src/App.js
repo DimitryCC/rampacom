@@ -33,6 +33,9 @@ import CrudDescripciones from "./components/Crud/CrudDescripciones";
 import CrudAlojServicios from "./components/Crud/CrudAlojServicios";
 import CrudTipoAlojamiento from "./components/Crud/CrudTipoAlojamiento";
 import CrudTipoVacacional from "./components/Crud/CrudTipoVacacional";
+import AlojaminetosFiltrados from "./components/Frontend/AlojaminetosFiltrados";
+import AlojamientoIndividual from "./components/Frontend/AlojamientoIndividual";
+
 
 
 
@@ -51,7 +54,8 @@ function App() {
             <Route path="/municipis/:id" element={<EditaMunicipis />} />
             <Route path="/llistamunicipis" element={<LlistaMunicipis />} />
             <Route path="/taulallibres" element={<TaulaLlibres />} />
-            <Route path="/alojamientos" element={<Alojamientos />} />
+            <Route path="/alojamientos" element={<AlojaminetosFiltrados />} />
+            <Route path={"/alojamiento/:alojaminetoId"} element={<AlojamientoIndividual/>}/>
             <Route path="/login" element={<Login />} />
             <Route path="/creauser" element={<CreaUser />} />
             <Route path="/creaIdioma" element={<CreaIdioma />} />
