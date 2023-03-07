@@ -11,7 +11,6 @@ function AlojamientoIndividual() {
         fetch('http://www.rampacom.com/ProyectoFinal/public/api/alojamiento/'+alojaminetoId)
             .then(response => response.json())
             .then(data => {
-                setListaAlojamientos(data.result);
                 setCaregant(false);
             })
             .catch(error => {
@@ -24,8 +23,7 @@ function AlojamientoIndividual() {
     }else {
         return (
             <article>
-                <h1>{alojemiento.ID + ' ' + alojemiento.nombre}</h1>
-                {console.log(alojemiento.ID)}
+                <h1>{alojemiento.nombre}</h1>
                 <MostrarFoto IdAlojamiento={alojemiento.ID}/>
                 <h2>{alojemiento.direction}</h2>
                 <table>
