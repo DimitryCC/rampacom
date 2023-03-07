@@ -2,7 +2,6 @@ import {Form, h1, Col, Alert, Badge} from "react-bootstrap";
 import {useState} from "react";
 import {Link, useHistory, useNavigate} from "react-router-dom";
 import Cookies from "js-cookie";
-import {Button, TextField} from "@mui/material";
 import axios from "axios";
 import bcrypt from 'bcryptjs';
 function PerfilUser(props) {
