@@ -53,7 +53,6 @@ function CrudUsuario() {
         }
     };
     const [usuarioSeleccionado, setUsuarioSeleccionado] = useState({
-
         DNI: '',
         nombreCompleto: '',
         direccion: '',

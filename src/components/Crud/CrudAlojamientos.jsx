@@ -435,6 +435,7 @@ import {useNavigate} from "react-router-dom";
                                     <TableCell>{alojamiento.tipoVacacional}</TableCell>
                                     <TableCell>{alojamiento.categoria}</TableCell>
                                     <TableCell>{alojamiento.municipio}</TableCell>
+                                    <TableCell>{alojamiento.usuario}</TableCell>
                                     <TableCell>
                                         <Edit style={mystyleCursor}
                                               onClick={() => seleccionarAlojamiento(alojamiento, 'Editar')}/>

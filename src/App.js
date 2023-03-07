@@ -6,6 +6,8 @@ import Municipis from "./components/Municipis";
 import EditaMunicipis from "./components/EditaMunicipis";
 import LlistaMunicipis from "./components/LlistaMunicipis";
 import TaulaLlibres from "./components/TaulaLlibres";
+import Carrusel from "./components/Fotografies/Carrusel";
+import Alojamientos from "./components/Alojamientos/Alojamientos";
 import Login from "./components/Login/Login";
 import CreaUser from "./components/Login/CreaUsuer";
 import CreaIdioma from "./components/Idiomas/CreaIdioma";
@@ -31,7 +33,6 @@ import CrudDescripciones from "./components/Crud/CrudDescripciones";
 import CrudAlojServicios from "./components/Crud/CrudAlojServicios";
 import CrudTipoAlojamiento from "./components/Crud/CrudTipoAlojamiento";
 import CrudTipoVacacional from "./components/Crud/CrudTipoVacacional";
-import AlojaminetosFiltrados from "./components/Frontend/AlojaminetosFiltrados";
 
 
 
@@ -50,7 +51,7 @@ function App() {
             <Route path="/municipis/:id" element={<EditaMunicipis />} />
             <Route path="/llistamunicipis" element={<LlistaMunicipis />} />
             <Route path="/taulallibres" element={<TaulaLlibres />} />
-            <Route path="/alojamientos" element={<AlojaminetosFiltrados />} />
+            <Route path="/alojamientos" element={<Alojamientos />} />
             <Route path="/login" element={<Login />} />
             <Route path="/creauser" element={<CreaUser />} />
             <Route path="/creaIdioma" element={<CreaIdioma />} />

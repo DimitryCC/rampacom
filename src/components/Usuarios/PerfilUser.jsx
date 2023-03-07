@@ -2,33 +2,89 @@ import {Form, h1, Col, Alert, Badge} from "react-bootstrap";
 import {useState} from "react";
 import {Link, useHistory, useNavigate} from "react-router-dom";
 import Cookies from "js-cookie";
+import {Button, TextField} from "@mui/material";
+import axios from "axios";
+import bcrypt from 'bcryptjs';
 function PerfilUser(props) {
-    const [DNI,setDNI]=useState("");
-    const [nombreCompleto,setNombreCompleto]=useState("");
-    const [direccion,setDireccion]=useState("");
-    const [correo,setCorreo]=useState("");
-    const [telefono,setTelefono]=useState("");
-    const [contrasena,setContrasena]=useState("");
+
     const navigate = useNavigate();
     const mailCookie = Cookies.get('mailCookie');
     const nombreCookie = Cookies.get('nombreCookie');
     const dniCookie = Cookies.get('dniCookie');
     const direccionCookie = Cookies.get('direccionCookie');
     const telefonoCookie = Cookies.get('telefonoCookie');
-
+    const adminCookie = Cookies.get('adminCookie');
+    const propietariCookie = Cookies.get('propietariCookie');
+    const apiTokenCookie = Cookies.get('apiTokenCookie');
     const idCookie = Cookies.get('idCookie');
+    const contrasenaCookie = Cookies.get('contrasenaCookie');
+    const config = {
+        headers: {
+            Authorization: `Bearer ${apiTokenCookie}`
+        }
+    };
+    const [usuarioSeleccionado, setUsuarioSeleccionado] = useState({
+        ID: idCookie,
+        DNI: dniCookie,
+        nombreCompleto: nombreCookie,
+        direccion: direccionCookie,
+        correo: mailCookie,
+        telefono: telefonoCookie,
+        administrador: adminCookie,
+        propietari: propietariCookie,
+        contrasena: ''
+    })
+    const [DNI, setDNI] = useState(usuarioSeleccionado?.DNI || '');
+    const handleDNIChange = (e) => {
+        setDNI(e.target.value);
+    };
+    const [nombreCompleto, setNombreCompleto] = useState(usuarioSeleccionado?.nombreCompleto || '');
+    const handleNombreCompletoChange = (e) => {
+        setNombreCompleto(e.target.value);
+    };
+    const [direccion, setDireccion] = useState(usuarioSeleccionado?.direccion || '');
+    const handleDireccionChange = (e) => {
+        setDireccion(e.target.value);
+    };
+    const [correo, setCorreo] = useState(usuarioSeleccionado?.correo || '');
+    const handleCorreoChange = (e) => {
+        setCorreo(e.target.value);
+    };
+    const [telefono, setTelefono] = useState(usuarioSeleccionado?.telefono || '');
+    const handleTelefonoChange = (e) => {
+        setTelefono(e.target.value);
+    };
+    const [administrador, setAdministrador] = useState(usuarioSeleccionado?.administrador || '');
+    const handleAdministradorChange = (e) => {
+        setAdministrador(e.target.value);
+    };
+    const [propietari, setPropietari] = useState(usuarioSeleccionado?.propietari || '');
+    const handlePropietariChange = (e) => {
+        setPropietari(e.target.value);
+    };
+    const [contrasena, setContrasena] = useState(usuarioSeleccionado?.contrasena || '');
+    const handleContrasenaChange = (e) => {
+        setContrasena(e.target.value);
+    };
 
+    const handleChange = e => {
+        const {name, value} = e.target;
+        setUsuarioSeleccionado(prevState => ({
+            ...prevState,
+            [name]: value
+        }))
+        console.log(usuarioSeleccionado);
+    }
 
     async function creaUser(){
-        const apiTokenCookie = Cookies.get('apiTokenCookie');
-        console.warn(DNI,nombreCompleto,direccion,correo,telefono,contrasena)
+        console.log(apiTokenCookie)
+        console.warn(DNI,nombreCompleto,direccion,correo,telefono,propietari,contrasena)
         let item={DNI,nombreCompleto,direccion,correo,telefono,contrasena}
-        let result= await fetch("http://www.rampacom.com/ProyectoFinal/public/api/usuario/modifica/"+ idCookie,{
+        let result= await fetch("http://www.rampacom.com/ProyectoFinal/public/api/usuario/modifica/"+ usuarioSeleccionado.ID,{
                 method:'PUT',
                 headers: {
-                    Accept: 'application/json',
-                    Authentication: 'Bearer ' + apiTokenCookie,
-                    'X-Custom-Header': 'header value'
+                    Authorization: 'Bearer ' + apiTokenCookie,
+                    'Content-Type': 'application/json'
                 },
             body: JSON.stringify(item)
         });
@@ -39,33 +95,49 @@ function PerfilUser(props) {
         navigate("/login")
     }
 
+    const peticionPut = async () => {
+        const hashedPassword = bcrypt.hashSync(usuarioSeleccionado.contrasena);
+        setUsuarioSeleccionado(prevState => ({
+            ...prevState,
+            contrasena: hashedPassword
+        }));
+        console.log(usuarioSeleccionado.ID);
+        await axios.put('http://www.rampacom.com/ProyectoFinal/public/api/usuario/modifica/' + usuarioSeleccionado.ID, usuarioSeleccionado, config)
+            .then(response => {
+                navigate("/login")
+            })
+    }
+
     return (
         <div>
             <div className={'col-sm-6 offset-sm-3'}>
-                <br/>
-                <h1><Badge bg="secondary">Modifica tu Usuario</Badge></h1>
+                <h1><Badge bg="secondary">Perfil Usuario</Badge></h1>
                 <Form.Control type='text' placeholder='DNI'
-                              onChange={(e)=>setDNI(e.target.value)}
-                              className={"form.control"} value={dniCookie}/>
+                              onChange={handleDNIChange}
+                              className={"form.control"} value={DNI}/>
                 <br/>
                 <Form.Control type='text' placeholder='Nombre Completo'
-                              onChange={(e)=>setNombreCompleto(e.target.value)}
-                              className={"form.control"} value={nombreCookie}/>
+                              onChange={handleNombreCompletoChange}
+                              className={"form.control"} value={nombreCompleto}/>
                 <br/>
                 <Form.Control type='text' placeholder='Direccion'
-                              onChange={(e)=>setDireccion(e.target.value)}
-                              className={"form.control"} value={direccionCookie}/>
+                              onChange={handleDireccionChange}
+                              className={"form.control"} value={direccion}/>
                 <br/>
                 <Form.Control type='text' placeholder='Mail'
-                              onChange={(e)=>setCorreo(e.target.value)}
-                              className={"form.control"} value={mailCookie}/>
+                              onChange={handleCorreoChange}
+                              className={"form.control"} value={correo}/>
                 <br/>
                 <Form.Control type='text' placeholder='Telefono'
-                              onChange={(e)=>setTelefono(e.target.value)}
-                              className={"form.control"} value={telefonoCookie}/>
+                              onChange={handleTelefonoChange}
+                              className={"form.control"} value={telefono}/>
+                <br/>
+                <Form.Control type='text' placeholder='Propietario'
+                              onChange={handlePropietariChange}
+                              className={"form.control"} value={propietari}/>
                 <br/>
                 <Form.Control type='text' placeholder='Clave password'
-                              onChange={(e)=>setContrasena(e.target.value)}
+                              onChange={handleContrasenaChange}
                               className={"form.control"} value={contrasena}/>
                 <br/>
                 <button onClick={creaUser} className={"btn btn-primary"}>Modifica</button>

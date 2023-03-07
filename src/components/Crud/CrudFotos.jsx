@@ -53,21 +53,34 @@ function CrudFotos() {
     const navigate = useNavigate();
     const apiTokenCookie = Cookies.get('apiTokenCookie');
     const adminCookie = Cookies.get('adminCookie');
+    const formData = new FormData();
     const config = {
         headers: {
-            Authorization: `Bearer ${apiTokenCookie}`
+            Authorization: `Bearer ${apiTokenCookie}`,
+            'Content-Type': 'multipart/form-data'
         }
     };
     const [fotoSeleccionada, setFotoSeleccionada] = useState({
         ruta: '',
         alojamientoId: '',
     })
+    formData.append("ruta", fotoSeleccionada.ruta);
+    formData.append("alojamientoId", fotoSeleccionada.alojamientoId);
 
     const handleChange = e => {
         const {name, value} = e.target;
         setFotoSeleccionada(prevState => ({
             ...prevState,
             [name]: value
+        }))
+        console.log(fotoSeleccionada);
+    }
+    const handleChangeImg = e => {
+        const file = e.target.files[0];
+        console.log(e.target);
+        setFotoSeleccionada(prevState => ({
+            ...prevState,
+            'ruta': file
         }))
         console.log(fotoSeleccionada);
     }
@@ -92,7 +105,6 @@ function CrudFotos() {
         await axios.post('http://www.rampacom.com/ProyectoFinal/public/api/fotografia/crea', fotoSeleccionada, config)
             .then(response => {
                 console.log(fotoSeleccionada)
-                setList(list.concat(response.data.result.data))
                 abrirCerrarModalInsertar()
                 window.location.reload(false);
             })
@@ -110,7 +122,7 @@ function CrudFotos() {
                         foto.alojamientoId = fotoSeleccionada.alojamientoId;
                     }
                 })
-                console.log(listNueva);
+                console.log(fotoSeleccionada);
                 // response.listNueva = listNueva;
                 // setList(response.listNueva);
                 setList(listNueva);
@@ -153,7 +165,7 @@ function CrudFotos() {
             <br/>
             <h3>Crea Nueva Foto</h3>
             <br/>
-            <input type={"file"} name="ruta" label="Foto" onChange={handleChange}/>
+            <input type="file" name="ruta" label="Foto" onChange={handleChangeImg}/>
             <br/>
             <br/>
             <TextField name="alojamientoId" label="Id del Alojamiento" onChange={handleChange}/>
@@ -170,7 +182,7 @@ function CrudFotos() {
             <h3>Modifica la Foto</h3>
             <b><p><img style={mystyleImage} src={fotoSeleccionada && fotoSeleccionada.ruta}></img></p></b>
             <br/>
-            <input type={"file"} name="ruta" label="Foto" onChange={handleChange}/>
+            <input type="file" name="ruta" label="Foto" onChange={handleChangeImg}/>
             <br/>
             <br/>
             <TextField name="alojamientoId" label="Id del Alojamiento" onChange={handleChange}
@@ -224,9 +236,9 @@ function CrudFotos() {
                                 <TableCell>{foto.ruta}</TableCell>
                                 <TableCell>{foto.alojamientoId}</TableCell>
                                 <TableCell>
-                                    <Edit style={mystyleCursor}
-                                          onClick={() => seleccionarFoto(foto, 'Editar')}/>
-                                    &nbsp;&nbsp;
+                                    {/*<Edit style={mystyleCursor}*/}
+                                    {/*      onClick={() => seleccionarFoto(foto, 'Editar')}/>*/}
+                                    {/*&nbsp;&nbsp;*/}
                                     <Delete style={mystyleCursor}
                                             onClick={() => seleccionarFoto(foto, 'Eliminar')}/>
                                 </TableCell>

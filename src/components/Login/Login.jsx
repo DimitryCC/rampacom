@@ -50,6 +50,8 @@ function Login(props) {
         Cookies.set("direccionCookie",result.result.direccion);
         Cookies.set("dniCookie",result.result.DNI);
         Cookies.set("telefonoCookie",result.result.telefono);
+        Cookies.set("propietariCookie",result.result.propietari);
+        Cookies.set("contrasenaCookie",result.result.contrasena);
         const apiTokenCookie = Cookies.get('apiTokenCookie');
         console.log(apiTokenCookie);
         const adminCookie = Cookies.get('adminCookie');
