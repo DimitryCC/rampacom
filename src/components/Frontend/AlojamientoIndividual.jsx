@@ -53,7 +53,7 @@ function AlojamientoIndividual() {
                 <br/>
                 <p>{alojemiento.descripcion}</p>
                 <h1>Valoraciones alojamiento:</h1>
-                <CargarValoraciones alojemientoID={alojemiento.ID}/>
+
             </article>
         )
     }
