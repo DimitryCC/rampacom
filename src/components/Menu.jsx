@@ -29,7 +29,8 @@ function Menu() {
                     <Link className="nav-link" to="/inicio">Inicio</Link>
                     <Link className="nav-link" to="/alojamientos" >Alojamientos</Link>
                     <Link className="nav-link" to="/login">Login</Link>
-                    <Link className="nav-link" to="/reserves">Crea Reserves</Link>
+                    <Link className="nav-link" to="/contacto">Contactanos</Link>
+                    <Link className="nav-link" to="/userselect"> Herr. Usuario </Link>
                     <Link className="nav-link" to="/adminselect"> {adminHerr} </Link>
                 </Nav>
                 <Nav className="mr-auto">

@@ -33,10 +33,11 @@ import CrudDescripciones from "./components/Crud/CrudDescripciones";
 import CrudAlojServicios from "./components/Crud/CrudAlojServicios";
 import CrudTipoAlojamiento from "./components/Crud/CrudTipoAlojamiento";
 import CrudTipoVacacional from "./components/Crud/CrudTipoVacacional";
-import AlojaminetosFiltrados from "./components/Frontend/AlojaminetosFiltrados";
-import AlojamientoIndividual from "./components/Frontend/AlojamientoIndividual";
-
-
+import UserSelect from "./components/UserNoAdmin/UserSelect"
+import AlojamientosPropietario from "./components/CrudUsuario/AlojamientosPropietario";
+import ReservesUsuario from "./components/CrudUsuario/ReservesUsuario";
+import ValoracionUsuario from "./components/CrudUsuario/ValoracionUsuario";
+import ContactForm from "./components/Login/ContacForm";
 
 
 function App() {
@@ -47,15 +48,15 @@ function App() {
         <Routes>
           <Route path="/" element={<Menu />}>
               <Route path="/*" element={<Inicio />} />
-            <Route path="/inicio" element={<Inicio />} />
+            <Route index element={<Inicio />} />
             <Route path="/feines" element={<Feines />} />
+            <Route path="/contacto" element={<ContactForm />} />
             <Route path="/autors" element={<Autors />} />
             <Route path="/municipis" element={<Municipis />} />
             <Route path="/municipis/:id" element={<EditaMunicipis />} />
             <Route path="/llistamunicipis" element={<LlistaMunicipis />} />
             <Route path="/taulallibres" element={<TaulaLlibres />} />
-            <Route path="/alojamientos" element={<AlojaminetosFiltrados />} />
-            <Route path={"/alojamiento/:alojaminetoId"} element={<AlojamientoIndividual/>}/>
+            <Route path="/alojamientos" element={<Alojamientos />} />
             <Route path="/login" element={<Login />} />
             <Route path="/creauser" element={<CreaUser />} />
             <Route path="/creaIdioma" element={<CreaIdioma />} />
@@ -80,6 +81,10 @@ function App() {
             <Route element={<ProtectedRoutesToken />} >
                 <Route element={<CreaReserves />} path="/reserves" />
                 <Route element={<PerfilUser />} path="/perfil" />
+                <Route element={<UserSelect />} path="/userselect" />
+                <Route element={<AlojamientosPropietario />} path="/alojamientospropietario" />
+                <Route element={<ReservesUsuario />} path="/reservesusuario" />
+                <Route element={<ValoracionUsuario />} path="/valoracionusuario" />
             </Route>
           </Route>
 

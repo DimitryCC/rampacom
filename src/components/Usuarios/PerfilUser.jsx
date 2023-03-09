@@ -16,7 +16,6 @@ function PerfilUser(props) {
     const propietariCookie = Cookies.get('propietariCookie');
     const apiTokenCookie = Cookies.get('apiTokenCookie');
     const idCookie = Cookies.get('idCookie');
-    const contrasenaCookie = Cookies.get('contrasenaCookie');
     const config = {
         headers: {
             Authorization: `Bearer ${apiTokenCookie}`
@@ -78,7 +77,7 @@ function PerfilUser(props) {
     async function creaUser(){
         console.log(apiTokenCookie)
         console.warn(DNI,nombreCompleto,direccion,correo,telefono,propietari,contrasena)
-        let item={DNI,nombreCompleto,direccion,correo,telefono,contrasena}
+        let item={DNI,nombreCompleto,direccion,correo,telefono,contrasena,propietari}
         let result= await fetch("http://www.rampacom.com/ProyectoFinal/public/api/usuario/modifica/"+ usuarioSeleccionado.ID,{
                 method:'PUT',
                 headers: {
@@ -95,11 +94,6 @@ function PerfilUser(props) {
     }
 
     const peticionPut = async () => {
-        const hashedPassword = bcrypt.hashSync(usuarioSeleccionado.contrasena);
-        setUsuarioSeleccionado(prevState => ({
-            ...prevState,
-            contrasena: hashedPassword
-        }));
         console.log(usuarioSeleccionado.ID);
         await axios.put('http://www.rampacom.com/ProyectoFinal/public/api/usuario/modifica/' + usuarioSeleccionado.ID, usuarioSeleccionado, config)
             .then(response => {

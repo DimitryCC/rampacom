@@ -39,7 +39,7 @@ const mystyleButtons = {
     fontWeight: 'bold'
 };
 
-function CrudReservas() {
+function ValoracionUsuario() {
     const [list, setList] = useState([]);
     const [modalInsertar, setModalInsertar] = useState(false);
     const [modalEditar, setModalEditar] = useState(false);
@@ -47,26 +47,31 @@ function CrudReservas() {
     const navigate = useNavigate();
     const apiTokenCookie = Cookies.get('apiTokenCookie');
     const adminCookie = Cookies.get('adminCookie');
+    const idCookie = Cookies.get('idCookie');
     const config = {
         headers: {
             Authorization: `Bearer ${apiTokenCookie}`
         }
     };
-    const [reservaSeleccionada, setReservaSeleccionada] = useState({
-        ID:'',
-        usuarioId: '',
+    const [valoracionSeleccionada, setValoracionSeleccionada] = useState({
+        usuarioId: idCookie,
         AlojamientoId: '',
-        FechaInicio: '',
-        FechaFin: ''
+        texto: '',
+        puntuacion: '',
     })
+
+    const [usuario, setUsuario] = useState(valoracionSeleccionada?.usuarioId || '');
+    const handleUsuarioChange = (e) => {
+        setUsuario(e.target.value);
+    };
 
     const handleChange = e => {
         const {name, value} = e.target;
-        setReservaSeleccionada(prevState => ({
+        setValoracionSeleccionada(prevState => ({
             ...prevState,
             [name]: value
         }))
-        console.log(reservaSeleccionada);
+        console.log(valoracionSeleccionada);
     }
     useEffect(() => {
         getList()
@@ -75,10 +80,10 @@ function CrudReservas() {
 
 //Get
     const getList = async () => {
-        await axios.get('http://www.rampacom.com/ProyectoFinal/public/api/reserva', config)
+        await axios.get('http://www.rampacom.com/ProyectoFinal/public/api/valoracion/usuario/'+idCookie, config)
             .then(response => {
                 console.log(response.data);
-                setList(response.data.result.data);
+                setList(response.data.result);
             })
             .catch(function (error) {
                 console.log(error);
@@ -86,7 +91,7 @@ function CrudReservas() {
     }
 //Post
     const peticionPost = async () => {
-        await axios.post('http://www.rampacom.com/ProyectoFinal/public/api/reserva/crea', reservaSeleccionada, config)
+        await axios.post('http://www.rampacom.com/ProyectoFinal/public/api/valoracion/crea', valoracionSeleccionada, config)
             .then(response => {
                 setList(list.concat(response.data.result.data))
                 abrirCerrarModalInsertar()
@@ -96,16 +101,14 @@ function CrudReservas() {
 
 
     const peticionPut = async () => {
-        console.log(reservaSeleccionada.ID);
-        await axios.put('http://www.rampacom.com/ProyectoFinal/public/api/reserva/modifica/' + reservaSeleccionada.ID, reservaSeleccionada, config)
+        console.log(valoracionSeleccionada.ID);
+        await axios.put('http://www.rampacom.com/ProyectoFinal/public/api/valoracion/modifica/usuario/' + valoracionSeleccionada.usuarioId + '/alojamiento/' + valoracionSeleccionada.AlojamientoId, valoracionSeleccionada, config)
             .then(response => {
                 const listNueva = list;
-                listNueva.map(reserva => {
-                    if (reservaSeleccionada.ID === reserva.ID) {
-                        reserva.usuarioId = reservaSeleccionada.usuarioId;
-                        reserva.AlojamientoId = reservaSeleccionada.AlojamientoId;
-                        reserva.FechaInicio = reservaSeleccionada.FechaInicio;
-                        reserva.FechaFin = reservaSeleccionada.FechaFin;
+                listNueva.map(valoracion => {
+                    if (valoracionSeleccionada.usuarioId === valoracion.usuarioId && valoracionSeleccionada.AlojamientoId === valoracion.AlojamientoId) {
+                        valoracion.texto = valoracionSeleccionada.texto;
+                        valoracion.puntuacion = valoracionSeleccionada.puntuacion;
                     }
                 })
                 console.log(listNueva);
@@ -118,19 +121,19 @@ function CrudReservas() {
     }
 //Delete
     const peticionDelete = async () => {
-        console.log(reservaSeleccionada.ID);
-        await axios.delete('http://www.rampacom.com/ProyectoFinal/public/api/reserva/borra/' + reservaSeleccionada.ID, config)
+        console.log(valoracionSeleccionada.ID);
+        await axios.delete('http://www.rampacom.com/ProyectoFinal/public/api/valoracion/borra/usuario/' + valoracionSeleccionada.usuarioId + '/alojamiento/' + valoracionSeleccionada.AlojamientoId, config)
             .then(response => {
-                setList(list.filter(categoria => categoria.id !== reservaSeleccionada.ID));
+                setList(list.filter(valoracion => valoracion.usuarioId !== valoracionSeleccionada.usuarioId && valoracionSeleccionada.AlojamientoId !== valoracion.AlojamientoId));
                 abrirCerrarModalEliminar();
                 window.location.reload(false);
             })
     }
 
 //Asigna el elemento de la lista a esta constante
-    const seleccionarReserva = (reserva, caso) => {
-        console.log(reserva)
-        setReservaSeleccionada(reserva);
+    const seleccionarValoracion = (valoracion, caso) => {
+        console.log(valoracion)
+        setValoracionSeleccionada(valoracion);
         (caso === 'Editar') ? abrirCerrarModalEditar() : abrirCerrarModalEliminar()
     }
 
@@ -148,15 +151,14 @@ function CrudReservas() {
     const bodyInsertar = (
         <div style={mystyle}>
             <br/>
-            <h3>Crea Nuevo Usuario</h3>
+            <h3>Crea Nueva Valoracion</h3>
             <br/>
-            <TextField name="usuarioId" label="Id Usuario" onChange={handleChange}/>
-
+            <TextField type={"hidden"} name="usuarioId" label="Usuario" onChange={handleUsuarioChange} value={idCookie}/>
             <TextField name="AlojamientoId" label="Id Alojamiento" onChange={handleChange}/>
             <br/>
-            <TextField name="FechaInicio" label="Fecha Inicio (aaaa-mm-dd)" onChange={handleChange}/>
+            <TextField name="texto" label="Comentario" onChange={handleChange}/>
 
-            <TextField name="FechaFin" label="Fecha Fin (aaaa-mm-dd)" onChange={handleChange}/>
+            <TextField name="puntuacion" label="Puntuacion" onChange={handleChange}/>
             <br/><br/>
             <div align="center" style={mystyleButtons}>
                 <Button color="primary" onClick={() => peticionPost()}>Insertar</Button>
@@ -167,19 +169,14 @@ function CrudReservas() {
     const bodyEditar = (
         <div style={mystyle}>
             <br/>
-            <h3>Modifica la Reserva</h3>
+            <h3>Modifica la Valoracion</h3>
             <br/>
-            <TextField name="usuarioId" label="Id Usuario" onChange={handleChange}
-                       value={reservaSeleccionada && reservaSeleccionada.usuarioId}/>
 
-            <TextField name="AlojamientoId" label="Id Alojamiento" onChange={handleChange}
-                       value={reservaSeleccionada && reservaSeleccionada.AlojamientoId}/>
-            <br/>
-            <TextField name="FechaInicio" label="Fecha Inicio (aaaa-mm-dd)" onChange={handleChange}
-                       value={reservaSeleccionada && reservaSeleccionada.FechaInicio}/>
+            <TextField name="texto" label="Comentario" onChange={handleChange}
+                       value={valoracionSeleccionada && valoracionSeleccionada.texto}/>
 
-            <TextField name="FechaFin" label="Fecha Fin (aaaa-mm-dd)" onChange={handleChange}
-                       value={reservaSeleccionada && reservaSeleccionada.FechaFin}/>
+            <TextField name="puntuacion" label="Puntuacion" onChange={handleChange}
+                       value={valoracionSeleccionada && valoracionSeleccionada.puntuacion}/>
             <br/><br/>
             <div align="center" style={mystyleButtons}>
                 <Button color="primary" onClick={() => peticionPut()}>Modifica</Button>
@@ -190,8 +187,8 @@ function CrudReservas() {
     const bodyEliminar = (
         <div style={mystyle}>
             <br/>
-            <h3>Estás seguro que deseas eliminar la Reserva:</h3>
-            <b><p>--( {reservaSeleccionada && reservaSeleccionada.FechaInicio} -> {reservaSeleccionada && reservaSeleccionada.FechaFin} )--</p></b>
+            <h3>Estás seguro que deseas eliminar la Valoracion:</h3>
+            <b><p>--( {valoracionSeleccionada && valoracionSeleccionada.texto} )--</p></b>
             <p>???</p>
             <div align="center" style={mystyleButtons}>
                 <Button color="primary" onClick={() => peticionDelete()}>Sí</Button>
@@ -206,36 +203,34 @@ function CrudReservas() {
     return (
         <div>
             <br/>
-            <h1>Tus Reservas</h1>
+            <h1>Crud Valoraciones</h1>
             <Button onClick={() => abrirCerrarModalInsertar()}>Insertar</Button>
             <br/><br/>
             <TableContainer>
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>ID</TableCell>
-                            <TableCell>Usuario ID</TableCell>
-                            <TableCell>Alojamiento ID</TableCell>
-                            <TableCell>Fecha Inicio</TableCell>
-                            <TableCell>Fecha Fin</TableCell>
+                            <TableCell>Id Usuario</TableCell>
+                            <TableCell>Id Alojamiento</TableCell>
+                            <TableCell>Comentario</TableCell>
+                            <TableCell>Puntuacion</TableCell>
                             <TableCell>Acciones</TableCell>
                         </TableRow>
                     </TableHead>
 
                     <TableBody>
-                        {list.map(reserva => (
-                            <TableRow key={reserva.ID}>
-                                <TableCell>{reserva.ID}</TableCell>
-                                <TableCell>{reserva.usuarioId}</TableCell>
-                                <TableCell>{reserva.AlojamientoId}</TableCell>
-                                <TableCell>{reserva.FechaInicio}</TableCell>
-                                <TableCell>{reserva.FechaFin}</TableCell>
+                        {list.map(valoracion => (
+                            <TableRow key={valoracion.usuarioId && valoracion.AlojamientoId}>
+                                <TableCell>{valoracion.usuarioId}</TableCell>
+                                <TableCell>{valoracion.AlojamientoId}</TableCell>
+                                <TableCell>{valoracion.texto}</TableCell>
+                                <TableCell>{valoracion.puntuacion}</TableCell>
                                 <TableCell>
                                     <Edit style={mystyleCursor}
-                                          onClick={() => seleccionarReserva(reserva, 'Editar')}/>
+                                          onClick={() => seleccionarValoracion(valoracion, 'Editar')}/>
                                     &nbsp;&nbsp;
                                     <Delete style={mystyleCursor}
-                                            onClick={() => seleccionarReserva(reserva, 'Eliminar')}/>
+                                            onClick={() => seleccionarValoracion(valoracion, 'Eliminar')}/>
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -264,4 +259,4 @@ function CrudReservas() {
     );
 }
 
-export default CrudReservas;
+export default ValoracionUsuario;

@@ -66,8 +66,8 @@ import {useNavigate} from "react-router-dom";
         const navigate = useNavigate();
         const apiTokenCookie = Cookies.get('apiTokenCookie');
         const adminCookie = Cookies.get('adminCookie');
-        const [page, setPage] = useState(2);
-        const [rowsPerPage, setRowsPerPage] = useState(10);
+        // const [page, setPage] = useState(2);
+        // const [rowsPerPage, setRowsPerPage] = useState(10);
         const config = {
             headers: {
                 Authorization: `Bearer ${apiTokenCookie}`
@@ -86,108 +86,8 @@ import {useNavigate} from "react-router-dom";
             categoria: '',
             municipio: '',
             usuario: '',
+            destacado: ''
         })
-        const columns: GridColDef[] = [
-            { field: 'id', headerName: 'ID', width: 90 },
-
-            {
-                field: 'nombre',
-                headerName: 'Nombre',
-                width: 150,
-                editable: true,
-            },
-            {
-                field: 'descripcion',
-                headerName: 'Descripcion',
-                width: 150,
-                editable: true,
-            },
-            {
-                field: 'direccion',
-                headerName: 'Direccion',
-                width: 110,
-                editable: true,
-            },
-            {
-                field: 'numeroPersonas',
-                headerName: 'Num. Personas',
-                type: 'number',
-                width: 110,
-                editable: true,
-            },
-            {
-                field: 'numeroHabitaciones',
-                headerName: 'Num. Habitaciones',
-                type: 'number',
-                width: 150,
-                editable: true,
-            },
-            {
-                field: 'numeroCamas',
-                headerName: 'Num. Camas',
-                type: 'number',
-                width: 150,
-                editable: true,
-            },
-            {
-                field: 'numeroBanos',
-                headerName: 'Num. Baños',
-                type: 'number',
-                width: 110,
-                editable: true,
-            },
-            {
-                field: 'tipoAlojamiento',
-                headerName: 'Tipo Alojamiento',
-                type: 'number',
-                width: 110,
-                editable: true,
-            },
-            {
-                field: 'tipoVacacional',
-                headerName: 'Tipo Vacacional',
-                type: 'number',
-                width: 150,
-                editable: true,
-            },
-            {
-                field: 'categoria',
-                headerName: 'Categoria',
-                type: 'number',
-                width: 150,
-                editable: true,
-            },
-            {
-                field: 'municipio',
-                headerName: 'Municipio',
-                type: 'number',
-                width: 110,
-                editable: true,
-            },
-            {
-                field: 'usuario',
-                headerName: 'Usuario',
-                type: 'number',
-                width: 110,
-                editable: true,
-            },
-        ];
-        const rows = list.map((alojamiento) => {
-            return {
-                id: alojamiento.ID,
-                nombre: alojamiento.nombre,
-                descripcion: alojamiento.descripcion,
-                direccion: alojamiento.direccion,
-                numeroPersonas: alojamiento.numeroPersonas,
-                numeroHabitaciones: alojamiento.numeroHabitaciones,
-                numeroCamas: alojamiento.numeroCamas,
-                numeroBanos: alojamiento.numeroBanos,
-                tipoAlojamiento: alojamiento.tipoAlojamiento,
-                tipoVacacional: alojamiento.tipoVacacional,
-                categoria: alojamiento.categoria,
-                municipio: alojamiento.municipio
-            };
-        });
 
         const handleChange = e => {
             const {name, value} = e.target;
@@ -201,19 +101,6 @@ import {useNavigate} from "react-router-dom";
             getList()
         }, [])
 
-        const handleChangePage = (
-            event: React.MouseEvent<HTMLButtonElement> | null,
-            newPage: number,
-        ) => {
-            setPage(newPage);
-        };
-
-        const handleChangeRowsPerPage = (
-            event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-        ) => {
-            setRowsPerPage(parseInt(event.target.value, 10));
-            setPage(0);
-        };
 
 //Get
         const getList = async () => {
@@ -256,6 +143,7 @@ import {useNavigate} from "react-router-dom";
                             alojamiento.categoria = alojamientoSeleccionado.categoria;
                             alojamiento.municipio = alojamientoSeleccionado.municipio;
                             alojamiento.usuario = alojamientoSeleccionado.usuario;
+                            alojamiento.destacado = alojamientoSeleccionado.destacado;
                         }
                     })
                     console.log(listNueva);
@@ -323,6 +211,8 @@ import {useNavigate} from "react-router-dom";
                 <TextField name="municipio" label="Municipio" onChange={handleChange}/>
 
                 <TextField name="usuario" label="Usuario" onChange={handleChange}/>
+
+                <TextField name="destacado" label="Destacado" onChange={handleChange}/>
                 <br/><br/>
                 <div align="center" style={mystyleButtons}>
                     <Button color="primary" onClick={() => peticionPost()}>Insertar</Button>
@@ -370,6 +260,9 @@ import {useNavigate} from "react-router-dom";
 
                 <TextField name="usuario" label="Usuario" onChange={handleChange}
                            value={alojamientoSeleccionado && alojamientoSeleccionado.usuario}/>
+
+                <TextField name="destacado" label="Destacado" onChange={handleChange}
+                           value={alojamientoSeleccionado && alojamientoSeleccionado.destacado}/>
                 <br/><br/>
                 <div align="center" style={mystyleButtons}>
                     <Button color="primary" onClick={() => peticionPut()}>Modifica</Button>
@@ -390,6 +283,26 @@ import {useNavigate} from "react-router-dom";
 
             </div>
         )
+
+        const [page, setPage] = useState(0);
+        const [rowsPerPage, setRowsPerPage] = useState(10);
+        const startIndex = page * rowsPerPage;
+        const endIndex = startIndex + rowsPerPage;
+        const paginatedList = list.slice(startIndex, endIndex);
+
+        const handleChangePage = (
+            event: React.MouseEvent<HTMLButtonElement> | null,
+            newPage: number,
+        ) => {
+            setPage(newPage);
+        };
+
+        const handleChangeRowsPerPage = (
+            event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+        ) => {
+            setRowsPerPage(parseInt(event.target.value, 10));
+            setPage(0);
+        };
 
 
 //Return de como se muestra la pagina
@@ -416,12 +329,13 @@ import {useNavigate} from "react-router-dom";
                                 <TableCell>Categoria</TableCell>
                                 <TableCell>Municipio</TableCell>
                                 <TableCell>Usuario</TableCell>
+                                <TableCell>Destacado</TableCell>
                                 <TableCell>Acciones</TableCell>
                             </TableRow>
                         </TableHead>
 
                         <TableBody>
-                            {list.map(alojamiento => (
+                            {paginatedList.map(alojamiento => (
                                 <TableRow key={alojamiento.ID}>
                                     <TableCell>{alojamiento.ID}</TableCell>
                                     <TableCell>{alojamiento.nombre}</TableCell>
@@ -436,6 +350,7 @@ import {useNavigate} from "react-router-dom";
                                     <TableCell>{alojamiento.categoria}</TableCell>
                                     <TableCell>{alojamiento.municipio}</TableCell>
                                     <TableCell>{alojamiento.usuario}</TableCell>
+                                    <TableCell>{alojamiento.destacado}</TableCell>
                                     <TableCell>
                                         <Edit style={mystyleCursor}
                                               onClick={() => seleccionarAlojamiento(alojamiento, 'Editar')}/>
@@ -448,6 +363,14 @@ import {useNavigate} from "react-router-dom";
                         </TableBody>
                     </Table>
                 </TableContainer>
+                <TablePagination
+                    component="div"
+                    count={list.length}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    rowsPerPage={rowsPerPage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
                 <Modal
                     open={modalInsertar}
                     onClose={abrirCerrarModalInsertar}>
@@ -463,18 +386,18 @@ import {useNavigate} from "react-router-dom";
                     onClose={abrirCerrarModalEliminar}>
                     {bodyEliminar}
                 </Modal>
-                <h1>Alternativa</h1>
-                <Box sx={{height: 400, width: '100%'}}>
-                    <DataGrid
-                        rows={rows}
-                        columns={columns}
-                        pageSize={5}
-                        rowsPerPageOptions={[5]}
-                        checkboxSelection
-                        disableSelectionOnClick
-                        experimentalFeatures={{newEditingApi: true}}
-                    />
-                </Box>
+                {/*<h1>Alternativa</h1>*/}
+                {/*<Box sx={{height: 400, width: '100%'}}>*/}
+                {/*    <DataGrid*/}
+                {/*        rows={rows}*/}
+                {/*        columns={columns}*/}
+                {/*        pageSize={5}*/}
+                {/*        rowsPerPageOptions={[5]}*/}
+                {/*        checkboxSelection*/}
+                {/*        disableSelectionOnClick*/}
+                {/*        experimentalFeatures={{newEditingApi: true}}*/}
+                {/*    />*/}
+                {/*</Box>*/}
             </div>
 
 

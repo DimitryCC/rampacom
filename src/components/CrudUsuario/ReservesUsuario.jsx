@@ -39,7 +39,7 @@ const mystyleButtons = {
     fontWeight: 'bold'
 };
 
-function CrudReservas() {
+function ReservesUsuario() {
     const [list, setList] = useState([]);
     const [modalInsertar, setModalInsertar] = useState(false);
     const [modalEditar, setModalEditar] = useState(false);
@@ -47,6 +47,7 @@ function CrudReservas() {
     const navigate = useNavigate();
     const apiTokenCookie = Cookies.get('apiTokenCookie');
     const adminCookie = Cookies.get('adminCookie');
+    const idCookie = Cookies.get('idCookie');
     const config = {
         headers: {
             Authorization: `Bearer ${apiTokenCookie}`
@@ -75,10 +76,10 @@ function CrudReservas() {
 
 //Get
     const getList = async () => {
-        await axios.get('http://www.rampacom.com/ProyectoFinal/public/api/reserva', config)
+        await axios.get('http://www.rampacom.com/ProyectoFinal/public/api/reserva/usuario/'+idCookie, config)
             .then(response => {
-                console.log(response.data);
-                setList(response.data.result.data);
+                console.log(response.data.result);
+                setList(response.data.result);
             })
             .catch(function (error) {
                 console.log(error);
@@ -88,7 +89,7 @@ function CrudReservas() {
     const peticionPost = async () => {
         await axios.post('http://www.rampacom.com/ProyectoFinal/public/api/reserva/crea', reservaSeleccionada, config)
             .then(response => {
-                setList(list.concat(response.data.result.data))
+                setList(list.concat(response.data.result))
                 abrirCerrarModalInsertar()
                 window.location.reload(false);
             })
@@ -213,30 +214,20 @@ function CrudReservas() {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>ID</TableCell>
-                            <TableCell>Usuario ID</TableCell>
                             <TableCell>Alojamiento ID</TableCell>
                             <TableCell>Fecha Inicio</TableCell>
                             <TableCell>Fecha Fin</TableCell>
-                            <TableCell>Acciones</TableCell>
+
                         </TableRow>
                     </TableHead>
 
                     <TableBody>
                         {list.map(reserva => (
                             <TableRow key={reserva.ID}>
-                                <TableCell>{reserva.ID}</TableCell>
-                                <TableCell>{reserva.usuarioId}</TableCell>
                                 <TableCell>{reserva.AlojamientoId}</TableCell>
                                 <TableCell>{reserva.FechaInicio}</TableCell>
                                 <TableCell>{reserva.FechaFin}</TableCell>
-                                <TableCell>
-                                    <Edit style={mystyleCursor}
-                                          onClick={() => seleccionarReserva(reserva, 'Editar')}/>
-                                    &nbsp;&nbsp;
-                                    <Delete style={mystyleCursor}
-                                            onClick={() => seleccionarReserva(reserva, 'Eliminar')}/>
-                                </TableCell>
+
                             </TableRow>
                         ))}
                     </TableBody>
@@ -264,4 +255,4 @@ function CrudReservas() {
     );
 }
 
-export default CrudReservas;
+export default ReservesUsuario;
