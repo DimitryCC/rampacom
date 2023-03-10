@@ -1,16 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Feines from "./components/Feines";
-import Autors from "./components/Autors";
 import Menu from "./components/Menu";
-import Municipis from "./components/Municipis";
-import EditaMunicipis from "./components/EditaMunicipis";
-import LlistaMunicipis from "./components/LlistaMunicipis";
-import TaulaLlibres from "./components/TaulaLlibres";
-import Carrusel from "./components/Fotografies/Carrusel";
 import Alojamientos from "./components/Alojamientos/Alojamientos";
 import Login from "./components/Login/Login";
 import CreaUser from "./components/Login/CreaUsuer";
-import CreaIdioma from "./components/Idiomas/CreaIdioma";
 import LogAdmin from "./components/Login/LogAdmin";
 import Logueado from "./components/Login/Logueado";
 
@@ -38,10 +30,10 @@ import AlojamientosPropietario from "./components/CrudUsuario/AlojamientosPropie
 import ReservesUsuario from "./components/CrudUsuario/ReservesUsuario";
 import ValoracionUsuario from "./components/CrudUsuario/ValoracionUsuario";
 import ContactForm from "./components/Login/ContacForm";
+import ProtectedRoutesPropietari from "./components/Login/ProtectedRoutesPropietari";
 
 
 function App() {
-    //<ProtectedRoute path="/protected" element={<LogAdmin />} />
 
   return (
       <BrowserRouter>
@@ -49,17 +41,9 @@ function App() {
           <Route path="/" element={<Menu />}>
               <Route path="/*" element={<Inicio />} />
             <Route index element={<Inicio />} />
-            <Route path="/feines" element={<Feines />} />
-            <Route path="/contacto" element={<ContactForm />} />
-            <Route path="/autors" element={<Autors />} />
-            <Route path="/municipis" element={<Municipis />} />
-            <Route path="/municipis/:id" element={<EditaMunicipis />} />
-            <Route path="/llistamunicipis" element={<LlistaMunicipis />} />
-            <Route path="/taulallibres" element={<TaulaLlibres />} />
             <Route path="/alojamientos" element={<Alojamientos />} />
             <Route path="/login" element={<Login />} />
             <Route path="/creauser" element={<CreaUser />} />
-            <Route path="/creaIdioma" element={<CreaIdioma />} />
             <Route path="/logueado" element={<Logueado />} />
             <Route element={<ProtectedRoutesAdmin />} >
                 <Route element={<LogAdmin />} path="/protected" />
@@ -82,9 +66,11 @@ function App() {
                 <Route element={<CreaReserves />} path="/reserves" />
                 <Route element={<PerfilUser />} path="/perfil" />
                 <Route element={<UserSelect />} path="/userselect" />
-                <Route element={<AlojamientosPropietario />} path="/alojamientospropietario" />
                 <Route element={<ReservesUsuario />} path="/reservesusuario" />
                 <Route element={<ValoracionUsuario />} path="/valoracionusuario" />
+            </Route>
+            <Route element={<ProtectedRoutesPropietari />} >
+                <Route element={<AlojamientosPropietario />} path="/alojamientospropietario" />
             </Route>
           </Route>
 
