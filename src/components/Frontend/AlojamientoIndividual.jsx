@@ -25,12 +25,14 @@ function AlojamientoIndividual() {
         return <h1>Cargando</h1>
     }else {
         return (
-            <article style={{backgroundColor: "gray", display: "flex", flexDirection: "column"}}>
-                <h1 style={{width: "100%", textAlign: "center"}}>{alojemiento.nombre}</h1>
-                <MostrarFoto IdAlojamiento={alojemiento.ID}/>
-                <h2>{alojemiento.direction}</h2>
-                <div style={{borderBottom: "slategray",marginTop: "20px",marginBottom: "20px"}}>
-                <h1 style={{textAlign: "center"}}>Caracteristicas</h1>
+            <article style={{display: "flex", flexDirection: "column"}}>
+                    <div style={{borderBottom: "slategray",marginTop: "20px",marginBottom: "20px"}}>
+                        <h1 style={{width: "100%", textAlign: "center"}}>{alojemiento.nombre}</h1>
+                        <MostrarFoto IdAlojamiento={alojemiento.ID}/>
+                        <h2>{alojemiento.direction}</h2>
+                    </div>
+                    <div style={{borderBottom: "slategray",marginTop: "20px",marginBottom: "20px"}}>
+                    <h1 style={{textAlign: "center"}}>Caracteristicas</h1>
                 <table class={"table table-striped"} style={{marginTop: "50px"}}>
                     <thead>
                     <tr>

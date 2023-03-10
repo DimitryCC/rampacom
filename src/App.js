@@ -30,6 +30,8 @@ import AlojamientosPropietario from "./components/CrudUsuario/AlojamientosPropie
 import ReservesUsuario from "./components/CrudUsuario/ReservesUsuario";
 import ValoracionUsuario from "./components/CrudUsuario/ValoracionUsuario";
 import ContactForm from "./components/Login/ContacForm";
+import AlojaminetosFiltrados from "./components/Frontend/AlojaminetosFiltrados";
+import AlojamientoIndividual from "./components/Frontend/AlojamientoIndividual";
 import ProtectedRoutesPropietari from "./components/Login/ProtectedRoutesPropietari";
 
 
@@ -41,10 +43,12 @@ function App() {
           <Route path="/" element={<Menu />}>
               <Route path="/*" element={<Inicio />} />
             <Route index element={<Inicio />} />
-            <Route path="/alojamientos" element={<Alojamientos />} />
+            <Route path="/alojamientos" element={<AlojaminetosFiltrados />} />
+            <Route path="/alojamiento/:alojaminetoId" element={<AlojamientoIndividual />} />
             <Route path="/login" element={<Login />} />
             <Route path="/creauser" element={<CreaUser />} />
             <Route path="/logueado" element={<Logueado />} />
+            <Route path="/contacto" element={<ContactForm/>}/>
             <Route element={<ProtectedRoutesAdmin />} >
                 <Route element={<LogAdmin />} path="/protected" />
                 <Route element={<AdminSelect />} path="/adminselect" />

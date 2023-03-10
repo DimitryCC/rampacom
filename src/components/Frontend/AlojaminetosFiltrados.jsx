@@ -172,7 +172,7 @@ function AlojaminetosFiltrados() {
         }else {
             return (
                 <>
-                    <form key={uuidv4()} class={"form-group"} style={{width: "100%",display: "flex"}}>
+                    <form key={uuidv4()} class={"form-group"} style={{width: "100%",display: "flex", marginBottom: "20px"}}>
                         <label id={"NP"} class={"form-control"}>Aforo minimo:<br/> <input key={uuidv4()} id={"NP"} value={Aforo} type="number"
                                                                    name="NP" onChange={cambio}/></label>
                         <label id={"NH"} class={"form-control"}>Nuemro de habitaciones: <input id={"NH"} key={uuidv4()} value={Habitaciones}

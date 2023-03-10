@@ -51,15 +51,17 @@ function CargarValoraciones(props) {
         } else {
             return (
                 <>
-                    <div style={{marginTop: "20px",marginBottom: "20px",backgroundColor: "lightslategray",borderBottom: "black", borderWidth: "3px"}}>
+                    <div style={{marginTop: "20px",marginBottom: "20px",border: "15px solid lightgrey", borderRadius: "43px", backgroundColor: "lightblue"}}>
+                        <strong><h1 style={{marginTop: "1%",textAlign: "center"}}>Valoraciones alojamiento: {Total}</h1></strong>
+                        <br/>
                         {Valoraciones.map((valoracion) => (
-                            <>
-                                <h1 style={{marginTop: "50px",textAlign: "center"}}>Valoraciones alojamiento: {Total}</h1>
+                            <div style={{marginLeft: "1%", marginRight:"1%"}}>
                                 <h3>Usuario {Usuarios[valoracion.usuarioId].nombreCompleto + ": " + valoracion.puntuacion}</h3>
                                 <p>{valoracion.texto}</p>
-                            </>
+                            </div>
                         ))}
                     </div>
+                    <a href={"/valoracionusuario"} class={"btn btn-primary"} style={{width: "100%"}}>Haz tu valoracion !</a>
                 </>
             )
         }

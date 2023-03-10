@@ -18,15 +18,22 @@ function FormularioAlquiler(props) {
                 console.log(error);
             })
     },[])
+    const config = {
+        headers: {
+            Authorization: `Bearer ${Cookies.get("apiTokenCookie")}`
+        }
+    };
     function alterar(e) {
-       e.preventDefault();
-       let FechaInicio = e.fechaInicio.value;
-       let FechaFinal = e.fechaFinal.value;
-       FechaInicio = FormarFecha(FechaInicio);
-       FechaFinal = FormarFecha(FechaFinal);
-       e.fechaInicio.value = FechaInicio;
-       e.fechaFinal.value = FechaFinal;
-       e.submit();
+            let FechaInicio = e.fechaInicio.value;
+            let FechaFinal = e.fechaFinal.value;
+            FechaInicio = FormarFecha(FechaInicio);
+            FechaFinal = FormarFecha(FechaFinal);
+            e.fechaInicio.value = FechaInicio;
+            e.fechaFinal.value = FechaFinal;
+            axios.post('http://www.rampacom.com/ProyectoFinal/public/api/descripcion/crea', e, config)
+            .then(response => {
+                window.location.reload(false);
+            }).catch(response => console.log(response));
     }
     function Comprovar(e) {
         let form = e.target.value;
@@ -37,7 +44,8 @@ function FormularioAlquiler(props) {
         });
     }
     return(
-        <div style={{display: "flex", flexDirection: "row"}}>
+        <div style={{display: "flex", flexDirection: "column",alignItems: "center", textAlign: "center", fontWeight: "bold", margin: "1%", padding: "1%", height: "80vh", justifyContent: "center", border: "15px solid lightgrey", borderRadius: "43px", backgroundColor: "lightblue"}}>
+            <h1>Fechas Alquiladas actuales</h1>
             <table style={{width: '50%', height: '500px', overflow: "scroll"}} class={"table table-striped"}>
                 <thead>
                     <tr>
@@ -55,14 +63,8 @@ function FormularioAlquiler(props) {
                         ))
                     }
                 </tbody>
-            </table><br/>
-        <form action="" method="post" class={"form-group"} style={{width: '50%', overflow: "scroll"}}>
-            <input type={"hidden"} value={props.IdAlojamiento} />
-            <input type={"hidden"} value={Cookies.get("idCookie")} />
-            <input name={"fechaInicio"} type={"date"} class={"form-control"} onChange={Comprovar}/>
-            <input name={"fechaFinal"} type={"date"} class={"form-control"} onChange={Comprovar}/><br/>
-            <button id={"Boton"} onSubmit={alterar} type={"submit"}  class={"btn btn-primary"} style={{width: "100%"}}>Reserva ya!</button>
-        </form>
+            </table><br/><br/>
+            <a href={"/reservesusuario"}><button id={"Boton"} onSubmit={alterar} type={"button"}  class={"btn btn-primary"} style={{width: "100%"}}>Reserva ya!</button></a>
         </div>
     )
 }
