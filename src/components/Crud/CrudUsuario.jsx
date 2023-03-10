@@ -221,6 +221,25 @@ function CrudUsuario() {
         </div>
     )
 
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const startIndex = page * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
+    const paginatedList = list.slice(startIndex, endIndex);
+
+    const handleChangePage = (
+        event: React.MouseEvent<HTMLButtonElement> | null,
+        newPage: number,
+    ) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (
+        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
 
 //Return de como se muestra la pagina
     return (
@@ -246,7 +265,7 @@ function CrudUsuario() {
                     </TableHead>
 
                     <TableBody>
-                        {list.map(usuario => (
+                        {paginatedList.map(usuario => (
                             <TableRow key={usuario.ID}>
                                 <TableCell>{usuario.ID}</TableCell>
                                 <TableCell>{usuario.DNI}</TableCell>
@@ -268,6 +287,14 @@ function CrudUsuario() {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <TablePagination
+                component="div"
+                count={list.length}
+                page={page}
+                onPageChange={handleChangePage}
+                rowsPerPage={rowsPerPage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+            />
             <Modal
                 open={modalInsertar}
                 onClose={abrirCerrarModalInsertar}>

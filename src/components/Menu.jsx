@@ -22,6 +22,7 @@ const mystyleFooter = {
 function Menu() {
     const mailCookie = Cookies.get('mailCookie');
     const adminHerr = Cookies.get('adminHerr');
+    const userHerr = Cookies.get('userHerr');
     return (
         <>
             <Navbar bg="dark" className="justify-content-md-center" variant="dark" expand="sm" sticky="top">
@@ -30,7 +31,7 @@ function Menu() {
                     <Link className="nav-link" to="/alojamientos" >Alojamientos</Link>
                     <Link className="nav-link" to="/login">Login</Link>
                     <Link className="nav-link" to="/contacto">Contactanos</Link>
-                    <Link className="nav-link" to="/userselect"> Herr. Usuario </Link>
+                    <Link className="nav-link" to="/userselect"> {userHerr} </Link>
                     <Link className="nav-link" to="/adminselect"> {adminHerr} </Link>
                 </Nav>
                 <Nav className="mr-auto">

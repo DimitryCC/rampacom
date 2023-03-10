@@ -38,8 +38,6 @@ import AlojamientosPropietario from "./components/CrudUsuario/AlojamientosPropie
 import ReservesUsuario from "./components/CrudUsuario/ReservesUsuario";
 import ValoracionUsuario from "./components/CrudUsuario/ValoracionUsuario";
 import ContactForm from "./components/Login/ContacForm";
-import AlojaminetosFiltrados from "./components/Frontend/AlojaminetosFiltrados";
-import AlojamientoIndividual from "./components/Frontend/AlojamientoIndividual";
 
 
 function App() {
@@ -58,8 +56,7 @@ function App() {
             <Route path="/municipis/:id" element={<EditaMunicipis />} />
             <Route path="/llistamunicipis" element={<LlistaMunicipis />} />
             <Route path="/taulallibres" element={<TaulaLlibres />} />
-            <Route path="/alojamientos" element={<AlojaminetosFiltrados />} />
-              <Route path="/alojamiento/:alojaminetoId" element={<AlojamientoIndividual />} />
+            <Route path="/alojamientos" element={<Alojamientos />} />
             <Route path="/login" element={<Login />} />
             <Route path="/creauser" element={<CreaUser />} />
             <Route path="/creaIdioma" element={<CreaIdioma />} />

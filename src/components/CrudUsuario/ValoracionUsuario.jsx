@@ -203,14 +203,13 @@ function ValoracionUsuario() {
     return (
         <div>
             <br/>
-            <h1>Crud Valoraciones</h1>
+            <h1>Tus Valoraciones</h1>
             <Button onClick={() => abrirCerrarModalInsertar()}>Insertar</Button>
             <br/><br/>
             <TableContainer>
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Id Usuario</TableCell>
                             <TableCell>Id Alojamiento</TableCell>
                             <TableCell>Comentario</TableCell>
                             <TableCell>Puntuacion</TableCell>
@@ -221,16 +220,12 @@ function ValoracionUsuario() {
                     <TableBody>
                         {list.map(valoracion => (
                             <TableRow key={valoracion.usuarioId && valoracion.AlojamientoId}>
-                                <TableCell>{valoracion.usuarioId}</TableCell>
                                 <TableCell>{valoracion.AlojamientoId}</TableCell>
                                 <TableCell>{valoracion.texto}</TableCell>
                                 <TableCell>{valoracion.puntuacion}</TableCell>
                                 <TableCell>
                                     <Edit style={mystyleCursor}
                                           onClick={() => seleccionarValoracion(valoracion, 'Editar')}/>
-                                    &nbsp;&nbsp;
-                                    <Delete style={mystyleCursor}
-                                            onClick={() => seleccionarValoracion(valoracion, 'Eliminar')}/>
                                 </TableCell>
                             </TableRow>
                         ))}

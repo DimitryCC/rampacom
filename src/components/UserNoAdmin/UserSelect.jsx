@@ -51,10 +51,10 @@ function UserSelect(){
         <div style={mystyleButtons}>
             <h1>Herramientas de Usuario</h1>
             <br/>
-            <button style={mystyleButtons} onClick={() => irAlojamientos()}>Lista de Alojamientos</button><br/>
-            <button style={mystyleButtons} onClick={() => irReservas()}>Lista de Reservas</button><br/>
-            <button style={mystyleButtons} onClick={() => irValoraciones()}>Lista de Valoraciones</button><br/>
-            <button style={mystyleButtons} onClick={() => irDescripciones()}>Lista de Fotografias</button>
+            <button style={mystyleButtons} onClick={() => irAlojamientos()}>Lista de Tus Alojamientos</button><br/>
+            <button style={mystyleButtons} onClick={() => irReservas()}>Lista de Tus Reservas</button><br/>
+            <button style={mystyleButtons} onClick={() => irValoraciones()}>Lista de Tus Valoraciones</button><br/>
+            <button style={mystyleButtons} onClick={() => irDescripciones()}>Lista de Tus Fotografias</button>
             <br/>
             <br/>
         </div>

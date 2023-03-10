@@ -52,6 +52,7 @@ function Login(props) {
         Cookies.set("telefonoCookie",result.result.telefono);
         Cookies.set("propietariCookie",result.result.propietari);
         Cookies.set("contrasenaCookie",result.result.contrasena);
+        Cookies.set("userHerr",'Opciones');
         const apiTokenCookie = Cookies.get('apiTokenCookie');
         console.log(apiTokenCookie);
         const adminCookie = Cookies.get('adminCookie');
@@ -79,6 +80,7 @@ function Login(props) {
                 Cookies.remove('dniCookie');
                 Cookies.remove('telefonoCookie');
                 Cookies.remove('adminHerr');
+                Cookies.remove('userHerr');
                 alert('Hasta Pronto')
                 navigate("/inicio")
                 window.location.reload(false);

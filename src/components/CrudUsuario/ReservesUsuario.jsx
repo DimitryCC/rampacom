@@ -55,7 +55,7 @@ function ReservesUsuario() {
     };
     const [reservaSeleccionada, setReservaSeleccionada] = useState({
         ID:'',
-        usuarioId: '',
+        usuarioId: idCookie,
         AlojamientoId: '',
         FechaInicio: '',
         FechaFin: ''
@@ -73,6 +73,10 @@ function ReservesUsuario() {
         getList()
     }, [])
 
+    const [usuario, setUsuario] = useState(reservaSeleccionada?.usuarioId || '');
+    const handleUsuarioChange = (e) => {
+        setUsuario(e.target.value);
+    };
 
 //Get
     const getList = async () => {
@@ -91,7 +95,7 @@ function ReservesUsuario() {
             .then(response => {
                 setList(list.concat(response.data.result))
                 abrirCerrarModalInsertar()
-                window.location.reload(false);
+                // window.location.reload(false);
             })
     }
 
@@ -149,9 +153,9 @@ function ReservesUsuario() {
     const bodyInsertar = (
         <div style={mystyle}>
             <br/>
-            <h3>Crea Nuevo Usuario</h3>
+            <h3>Crea Nueva Reserva</h3>
             <br/>
-            <TextField name="usuarioId" label="Id Usuario" onChange={handleChange}/>
+            <TextField type={"hidden"} name="usuarioId" label="Usuario" onChange={handleUsuarioChange} value={idCookie}/>
 
             <TextField name="AlojamientoId" label="Id Alojamiento" onChange={handleChange}/>
             <br/>
@@ -208,7 +212,7 @@ function ReservesUsuario() {
         <div>
             <br/>
             <h1>Tus Reservas</h1>
-            <Button onClick={() => abrirCerrarModalInsertar()}>Insertar</Button>
+            <Button onClick={() => abrirCerrarModalInsertar()}>Crear Nueva Reserva</Button>
             <br/><br/>
             <TableContainer>
                 <Table>
