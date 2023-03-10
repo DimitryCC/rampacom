@@ -128,17 +128,17 @@ function AlojaminetosFiltrados() {
         if (listaAlojamientos.length === 0){
             return (
                 <>
-                    <form key={uuidv4()}>
-                        <label id={"NP"}>Aforo minimo:<br/> <input key={uuidv4()} id={"NP"} value={Aforo} type="number"
+                    <form key={uuidv4()} class={"form-group"}>
+                        <label id={"NP"} class={"form-control"}>Aforo minimo:<br/> <input key={uuidv4()} id={"NP"} value={Aforo} type="number"
                                                                    name="NP" onChange={cambio}/></label>
-                        <label id={"NH"}>Nuemro de habitaciones: <input id={"NH"} key={uuidv4()} value={Habitaciones}
+                        <label id={"NH"} class={"form-control"}>Nuemro de habitaciones: <input id={"NH"} key={uuidv4()} value={Habitaciones}
                                                                         type="number" name="NH"
                                                                         onChange={cambio}/></label>
-                        <label id={"NC"}>Numero de Camas: <input id={"NC"} key={uuidv4()} value={Camas} type="number"
+                        <label id={"NC"} class={"form-control"}>Numero de Camas: <input id={"NC"} key={uuidv4()} value={Camas} type="number"
                                                                  name="NC" onChange={cambio}/></label>
-                        <label id={"NB"}>Numero de Baños: <input id={"NB"} key={uuidv4()} value={Banos} type="number"
+                        <label id={"NB"} class={"form-control"}>Numero de Baños: <input id={"NB"} key={uuidv4()} value={Banos} type="number"
                                                                  name="NB" onChange={cambio}/></label>
-                        <label id={"C"}>Categoria:
+                        <label id={"C"} class={"form-control"}>Categoria:
                             <select id={"C"} key={uuidv4()} name={"C"} value={Categoria} onChange={cambio}>
                                 <option key={uuidv4()} value={null}>{"Seleciona"}</option>
                                 {
@@ -147,7 +147,7 @@ function AlojaminetosFiltrados() {
                                     ))
                                 }
                             </select></label>
-                        <label id={"TA"}> Tipo de Alojamiento:
+                        <label id={"TA"} class={"form-control"}> Tipo de Alojamiento:
                             <select id={"TA"} name={"TA"} key={uuidv4()} value={TipoAlojameinto} onChange={cambio}>
                                 <option key={uuidv4()} value={null}>{"Selecciona"}</option>
                                 {
@@ -156,7 +156,7 @@ function AlojaminetosFiltrados() {
                                     ))
                                 }
                             </select></label>
-                        <label id={"TV"}>Tipo vacacional:
+                        <label id={"TV"} class={"form-control"}>Tipo vacacional:
                             <select key={uuidv4()} id={"TV"} name={"TV"} value={TipoVacacional} onChange={cambio}>
                                 <option key={uuidv4()} value={null}>{"Selecciona"}</option>
                                 {
@@ -172,17 +172,17 @@ function AlojaminetosFiltrados() {
         }else {
             return (
                 <>
-                    <form key={uuidv4()}>
-                        <label id={"NP"}>Aforo minimo:<br/> <input key={uuidv4()} id={"NP"} value={Aforo} type="number"
+                    <form key={uuidv4()} class={"form-group"} style={{width: "100%",display: "flex"}}>
+                        <label id={"NP"} class={"form-control"}>Aforo minimo:<br/> <input key={uuidv4()} id={"NP"} value={Aforo} type="number"
                                                                    name="NP" onChange={cambio}/></label>
-                        <label id={"NH"}>Nuemro de habitaciones: <input id={"NH"} key={uuidv4()} value={Habitaciones}
+                        <label id={"NH"} class={"form-control"}>Nuemro de habitaciones: <input id={"NH"} key={uuidv4()} value={Habitaciones}
                                                                         type="number" name="NH"
                                                                         onChange={cambio}/></label>
-                        <label id={"NC"}>Numero de Camas: <input id={"NC"} key={uuidv4()} value={Camas} type="number"
+                        <label id={"NC"} class={"form-control"}>Numero de Camas: <input id={"NC"} key={uuidv4()} value={Camas} type="number"
                                                                  name="NC" onChange={cambio}/></label>
-                        <label id={"NB"}>Numero de Baños: <input id={"NB"} key={uuidv4()} value={Banos} type="number"
+                        <label id={"NB"} class={"form-control"}>Numero de Baños: <input id={"NB"} key={uuidv4()} value={Banos} type="number"
                                                                  name="NB" onChange={cambio}/></label>
-                        <label id={"C"}>Categoria:
+                        <label id={"C"} class={"form-control"} >Categoria:<br/>
                             <select id={"C"} key={uuidv4()} name={"C"} value={Categoria} onChange={cambio}>
                                 <option key={uuidv4()} value={null}>{"Seleciona"}</option>
                                 {
@@ -191,7 +191,7 @@ function AlojaminetosFiltrados() {
                                     ))
                                 }
                             </select></label>
-                        <label id={"TA"}> Tipo de Alojamiento:
+                        <label id={"TA"} class={"form-control"}> Tipo de Alojamiento:<br/>
                             <select id={"TA"} name={"TA"} key={uuidv4()} value={TipoAlojameinto} onChange={cambio}>
                                 <option key={uuidv4()} value={null}>{"Selecciona"}</option>
                                 {
@@ -200,7 +200,7 @@ function AlojaminetosFiltrados() {
                                     ))
                                 }
                             </select></label>
-                        <label id={"TV"}>Tipo vacacional:
+                        <label id={"TV"} class={"form-control"}>Tipo vacacional:<br/>
                             <select key={uuidv4()} id={"TV"} name={"TV"} value={TipoVacacional} onChange={cambio}>
                                 <option key={uuidv4()} value={null}>{"Selecciona"}</option>
                                 {
@@ -245,8 +245,8 @@ function AlojaminetosFiltrados() {
                                                     <td>{alojamiento.numeroCamas}</td>
                                                     <td>{alojamiento.numeroBanos}</td>
                                                     <td>{alojamiento.tipoAlojamiento}</td>
-                                                    <td>{"hola"/*TipoVacacional.find((F)=> {F.ID == alojamiento.tipoVacacional; return F.nombreTipo;})*/}</td>
-                                                    <td>{"hola"/*Categoria.find((F)=> {F.ID == alojamiento.categoria; return F.nombreCategoria;})*/}</td>
+                                                    <td>{alojamiento.tipoVacacional}</td>
+                                                    <td>{alojamiento.categoria}</td>
                                                 </tr>
                                                 </tbody>
                                             </table>

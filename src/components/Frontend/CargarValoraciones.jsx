@@ -51,11 +51,11 @@ function CargarValoraciones(props) {
         } else {
             return (
                 <>
-                    <h1>Valoraciones alojamiento: {Total}</h1>
-                    <div>
+                    <div style={{marginTop: "20px",marginBottom: "20px",backgroundColor: "lightslategray",borderBottom: "black", borderWidth: "3px"}}>
                         {Valoraciones.map((valoracion) => (
                             <>
-                                <h1>Usuario {Usuarios[valoracion.usuarioId].nombreCompleto + ": " + valoracion.puntuacion}</h1>
+                                <h1 style={{marginTop: "50px",textAlign: "center"}}>Valoraciones alojamiento: {Total}</h1>
+                                <h3>Usuario {Usuarios[valoracion.usuarioId].nombreCompleto + ": " + valoracion.puntuacion}</h3>
                                 <p>{valoracion.texto}</p>
                             </>
                         ))}

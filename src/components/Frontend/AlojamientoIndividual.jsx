@@ -1,7 +1,9 @@
 import {Link, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {Component, useEffect, useState} from "react";
 import MostrarFoto from "./MostrarFoto";
 import CargarValoraciones from "./CargarValoraciones";
+import Calendario from "./Calendario";
+import FormularioAlquiler from "./FormularioAlquiler";
 
 function AlojamientoIndividual() {
     const { alojaminetoId } = useParams();
@@ -23,11 +25,13 @@ function AlojamientoIndividual() {
         return <h1>Cargando</h1>
     }else {
         return (
-            <article>
-                <h1>{alojemiento.nombre}</h1>
+            <article style={{backgroundColor: "gray", display: "flex", flexDirection: "column"}}>
+                <h1 style={{width: "100%", textAlign: "center"}}>{alojemiento.nombre}</h1>
                 <MostrarFoto IdAlojamiento={alojemiento.ID}/>
                 <h2>{alojemiento.direction}</h2>
-                <table>
+                <div style={{borderBottom: "slategray",marginTop: "20px",marginBottom: "20px"}}>
+                <h1 style={{textAlign: "center"}}>Caracteristicas</h1>
+                <table class={"table table-striped"} style={{marginTop: "50px"}}>
                     <thead>
                     <tr>
                         <th>Aforo</th>
@@ -51,9 +55,13 @@ function AlojamientoIndividual() {
                     </tr>
                     </tbody>
                 </table>
+                </div>
                 <br/>
                 <p>{alojemiento.descripcion}</p>
                 <CargarValoraciones IdAlojamiento={alojemiento.ID} />
+                <div style={{marginTop: "50px"}}>
+                    <FormularioAlquiler IdAlojamiento={alojemiento.ID}/>
+                </div>
             </article>
         )
     }

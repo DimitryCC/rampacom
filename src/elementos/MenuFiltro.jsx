@@ -1,6 +1,6 @@
 import SelleccionTipoAlojamiento from "./SelleccionTipoAlojamiento";
 import SelleccionTipoVacacional from "./SelleccionTipoVacacional";
-import SelleccionCategoria from "./SelleccionCategoria";
+import Categoria from "../components/Frontend/Categoria";
 import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {v4 as uuidv4} from "uuid";
@@ -65,7 +65,7 @@ function MenuFiltro() {
                     <label id={"NB"}>Numero de Baños: <input id={"NB"} key={uuidv4()} value={Banos} type="number" name="NB"/></label>
                     <SelleccionTipoAlojamiento/>
                     <SelleccionTipoVacacional/>
-                    <SelleccionCategoria/>
+                    <Categoria/>
                 </form>
                 <section key={uuidv4()}>
                     {

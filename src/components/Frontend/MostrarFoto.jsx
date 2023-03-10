@@ -43,7 +43,7 @@ function MostrarFoto(props) {
         []
     );
     return (
-        <div>
+        <div style={{width: "100%", alignItems: "center"}}>
             <Swiper
                 modules={[Virtual, Autoplay]}
                 spaceBetween={50}
